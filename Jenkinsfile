@@ -22,7 +22,7 @@ pipeline {
 			if ("${GIT_BRANCH}" == 'origin/main') {
 				sh '''
 				ssh -i '/path/to/key/key-name' jenkins@34.155.95.228 << EOF
-				docker rm -f containername
+				docker rm -f flaskapp
 				'''
                 //need to comment out for our first build 
                 //docker rmi eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
@@ -30,7 +30,7 @@ pipeline {
 			} else if ("${GIT_BRANCH}" == 'origin/development') {
 				sh '''
 				ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
-				docker rm -f containername
+				docker rm -f flaskapp
 				'''
                 //need to comment out for our first build 
                 //docker rmi eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
@@ -44,12 +44,12 @@ pipeline {
 			if ("${GIT_BRANCH}" == 'origin/main') {
 				sh '''
 				ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@34.155.95.228 << EOF
-				docker run -d -p 80:5500 --name containername eu.gcr.io/lbg-cloud-incubatione/pyflaskappe:latest
+				docker run -d -p 80:5500 --name flaskapp eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
 				'''
 			} else if ("${GIT_BRANCH}" == 'origin/development') {
 				sh '''
 				ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
-				docker run -d -p 80:5500 --name containername eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
+				docker run -d -p 80:5500 --name flaskapp eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
 				'''
 			}
 		}
