@@ -63,8 +63,10 @@ The key's randomart image is:
 |       o. o +. +B|
 |        o..+ .o=B|
 +----[SHA256]-----+
+
 $ cat /home/jenkins/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlK5pCcp3x1fqYgjhD6hhPBoFSw7i2/WjDGjbIVOjzwSPa/raKuyIkoBbg5YAGsnvKcb5lNNwATTPR4m1VcH5pgq1JkM5pWsO59hs2aVdCPeQNSjUcrqL+yr0tZF9xvCJyA3i3UqYnVPjiqmagCAeNA9mqo2ndh4I4o9OdnRngY1qGnZQHDzuvACeQ1E4BKDhNWIe233BH5fM2rgSnzQEMCwklTWv9YSeIR2GQzTWR9pxCz/6E4JR7AeOaYPT9TBpP6jbELFtIzgf4KVcXLne+IS5YKEdyks5yj3cGtcCk6Bko8lL7su467XTbNxWNxxT3rHRPRN2ctGbvH7Llyw6A3tn41geCVxjdgTfcyRBUVnFPjNHH98dsMJGj8MLEQkNBGxpVsCUuKTMhgbKCvTOrHEYJ5bBG9BTNbcgnolYSmJkbAIRYlFGS0A4oeyYqGn5aqEkKNPo4SOFOkgGDA3ECFz2k+0Zv4S0bU6Xh7YVm9lsUl4QhtdN4Jz5IxmGjICk= jenkins@rkg-jenkins
+
 //step 8 onto the dev and prod servers
 
 8- Put the public key on the dev and prod servers.
