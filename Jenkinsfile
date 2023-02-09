@@ -51,8 +51,8 @@ pipeline {
 				ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
 				docker run -d -p 80:5500 --name flaskapp eu.gcr.io/lbg-cloud-incubation/pyflaskapp:latest
 				'''
-			}
-		}
+			        }
+		       }
             }
         }
     }
