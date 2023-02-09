@@ -1,0 +1,14 @@
+Task! 
+ 
+Delete all your existing VMs
+ 
+Recreate your infrastructure of 3 Compute instances, one for jenkins and two for your dev and prod servers.
+ 
+Install Docker on all
+Install jenkins on one
+Make a jenkins user on all
+Ensure jenkins is part of the docker group on all
+ 
+Generate a new ssh key for jenkins to use
+Put the public key on the dev and prod servers.
+Attempt ssh connection to verify host key. 
