@@ -9,7 +9,7 @@ COPY . .
 RUN pip install -r "requirements.txt"
 
 # Add any environment variables
-ENV YOUR_NAME="Rubinder"
+ENV YOUR_NAME="Rd"
 
 # Expose the correct port
 EXPOSE 5500
