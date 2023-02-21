@@ -9,7 +9,6 @@ COPY . .
 RUN pip install -r "requirements.txt"
 
 # Add any environment variables
-
 ENV YOUR_NAME="Rubinder"
 
 # Expose the correct port
