@@ -1,55 +1,37 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Build Flask App') {
             steps {
                 sh '''
-		        docker build -t eu.gcr.io/lbg-cloud-incubation/simpleflask:latest -t eu.gcr.io/lbg-cloud-incubation/simpleflask:build-$BUILD_NUMBER .
-		        '''
-            }
+                docker build -t rubinder/flask-app:latest -t rubinder/flask-app:build-$BUILD_NUMBER .
+                '''
+           }
         }
-        stage('Push') {
+        stage('Build Custom NGINX') {
             steps {
                 sh '''
-		        docker push eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
-		        docker push eu.gcr.io/lbg-cloud-incubation/simpleflask:build-$BUILD_NUMBER
-		        '''
-            }
+                cd ./nginx
+                docker build -t rubinder/nginx-custom:latest -t rubinder/nginx-custom:build-$BUILD_NUMBER .
+                '''
+           }
         }
-	stage('Stop and Clean') {
+        stage('Push Images') {
             steps {
-                script {
-			        if ("${GIT_BRANCH}" == 'origin/main') {
-				        sh '''
-				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@34.155.95.228 << EOF
-				        docker rm -f flaskapp
-					docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
-				        '''
-			        } else if ("${GIT_BRANCH}" == 'origin/development') {
-				        sh '''
-				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
-				        docker rm -f flaskapp
-					docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:lates
-				        '''
-			}
-		}
+                sh '''
+                docker push rubinder/flask-app:latest
+                docker push rubinder/flask-app:latest:build-$BUILD_NUMBER
+                docker push rubinder/nginx-custom:latest
+                docker push rubinder/nginx-custom:build-$BUILD_NUMBER
+                '''
             }
         }
         stage('Deploy') {
             steps {
-                script {
-			        if ("${GIT_BRANCH}" == 'origin/main') {
-				        sh '''
-				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@34.155.95.228 << EOF
-				        docker run -d -p 80:5500 --name flaskapp eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
-				        '''
-			        } else if ("${GIT_BRANCH}" == 'origin/development') {
-				        sh '''
-				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
-				        docker run -d -p 80:5500 --name flaskapp eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
-				        '''
-			        }
-                }
+                sh '''
+                cd ./kubernetes
+                kubectl apply -f .
+                '''
             }
         }
     }
