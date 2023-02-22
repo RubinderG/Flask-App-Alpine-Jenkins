@@ -4,7 +4,7 @@ pipeline {
         stage('Build Flask App') {
             steps {
                 sh '''
-                docker build -t rubinder/flaskapp:latest -t rubinder/flaskapp:build-$BUILD_NUMBER .
+                docker build -t eu.gcr.io/lbg-cloud-incubation/rubinder-flaska-lbg:latest -t eu.gcr.io/lbg-cloud-incubation/rubinder-flaska-lbg:build-$BUILD_NUMBER .
                 '''
            }
         }
@@ -12,17 +12,17 @@ pipeline {
             steps {
                 sh '''
                 cd ./nginx
-                docker build -t rubinder/nginx-custom:latest -t rubinder/nginx-custom:build-$BUILD_NUMBER .
+                docker build -t eu.gcr.io/lbg-cloud-incubation/rubinder-nginxa-lbg:latest -t eu.gcr.io/lbg-cloud-incubation/rubinder-nginxa-lbg:build-$BUILD_NUMBER .
                 '''
            }
         }
         stage('Push Images') {
             steps {
                 sh '''
-                docker push rubinder/flaskapp:latest
-                docker push rubinder/flaskapp:latest:build-$BUILD_NUMBER
-                docker push rubinder/nginx-custom:latest
-                docker push rubinder/nginx-custom:build-$BUILD_NUMBER
+                docker push eu.gcr.io/lbg-cloud-incubation/rubinder-flaska-lbg:latest
+                docker push eu.gcr.io/lbg-cloud-incubation/rubinder-flaska-lbg:build-$BUILD_NUMBER
+                docker push eu.gcr.io/lbg-cloud-incubation/rubinder-nginxa-lbg:latest
+                docker push eu.gcr.io/lbg-cloud-incubation/rubinder-nginxa-lbg:build-$BUILD_NUMBER
                 '''
             }
         }
