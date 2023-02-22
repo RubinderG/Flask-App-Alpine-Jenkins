@@ -23,14 +23,14 @@ pipeline {
 				        sh '''
 				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@34.155.95.228 << EOF
 				        docker rm -f flaskapp
+					docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
 				        '''
-                        // docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
 			        } else if ("${GIT_BRANCH}" == 'origin/development') {
 				        sh '''
 				        ssh -i '/home/jenkins/.ssh/authorized_keys' jenkins@35.228.77.33 << EOF
 				        docker rm -f flaskapp
+					docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:lates
 				        '''
-                        // docker rmi eu.gcr.io/lbg-cloud-incubation/simpleflask:latest
 			}
 		}
             }
