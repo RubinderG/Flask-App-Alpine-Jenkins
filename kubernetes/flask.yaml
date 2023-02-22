@@ -20,21 +20,10 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: rubinder/flaskapp:latest
+        image: eu.gcr.io/lbg-cloud-incubation/rkg-flask-alpine:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5500
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: flaskapp-service
-spec:
-  type: ClusterIP
-  selector:
-    app: flaskapp
-  ports:
-  - protocol: TCP
-    port: 5500
     
 # apiVersion: v1
 # kind: Pod

@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
       - name: nginxflaskapp-container
-        image: rubinder/nginxflaskapp-custom:latest
+        image: eu.gcr.io/lbg-cloud-incubation/rkg-nginx-alpine:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
