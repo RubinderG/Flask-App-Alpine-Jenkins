@@ -4,7 +4,7 @@ pipeline {
         stage('Build Flask App') {
             steps {
                 sh '''
-                docker build -t rubinder/flask-app:latest -t rubinder/flask-app:build-$BUILD_NUMBER .
+                docker build -t rubinder/flaskapp:latest -t rubinder/flaskapp:build-$BUILD_NUMBER .
                 '''
            }
         }
@@ -19,8 +19,8 @@ pipeline {
         stage('Push Images') {
             steps {
                 sh '''
-                docker push rubinder/flask-app:latest
-                docker push rubinder/flask-app:latest:build-$BUILD_NUMBER
+                docker push rubinder/flaskapp:latest
+                docker push rubinder/flaskapp:latest:build-$BUILD_NUMBER
                 docker push rubinder/nginx-custom:latest
                 docker push rubinder/nginx-custom:build-$BUILD_NUMBER
                 '''

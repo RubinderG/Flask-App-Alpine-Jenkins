@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: flaskapp
   labels:
-    app: flask-app
+    app: flaskapp
 spec:
   replicas: 10
   selector:
     matchLabels:
-      app: flask-app
+      app: flaskapp
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -16,22 +16,22 @@ spec:
   template:
     metadata:
       labels:
-        app: flask-app
+        app: flaskapp
     spec:
       containers:
       - name: flask-container
-        image: rubinder/flask-app:latest
+        image: rubinder/flaskapp:latest
         ports:
         - containerPort: 5500
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-app-service
+  name: flaskapp-service
 spec:
   type: ClusterIP
   selector:
-    app: flask-app
+    app: flaskapp
   ports:
   - protocol: TCP
     port: 5500
