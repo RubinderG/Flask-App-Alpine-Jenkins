@@ -1,14 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginxflaskapp-deployment
+  name: nginx-deployment
   labels:
-    app: nginxflaskapp
+    app: nginx
+  namespace: {{ns}}
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
-      app: nginxflaskapp
+      app: nginx
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -16,27 +17,69 @@ spec:
   template:
     metadata:
       labels:
-        app: nginxflaskapp
+        app: nginx
     spec:
       containers:
-      - name: nginxflaskapp-container
+      - name: nginx
         image: eu.gcr.io/lbg-cloud-incubation/rkg-nginx-alpine:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: nginxflaskapp-service
+  name: nginx-service
+  namespace: {{ns}}
 spec:
   type: LoadBalancer
   selector:
-    app: nginxflaskapp
+    app: nginx
   ports:
   - protocol: TCP
-    port: 80 
+    port: 80
     targetPort: 80
+    
+#two containers
+#  apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nginxflaskapp-deployment
+#   labels:
+#     app: nginxflaskapp
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: nginxflaskapp
+#   strategy:
+#     rollingUpdate:
+#       maxSurge: 10%
+#       maxUnavailable: 25%
+#   template:
+#     metadata:
+#       labels:
+#         app: nginxflaskapp
+#     spec:
+#       containers:
+#       - name: nginxflaskapp-container
+#         image: eu.gcr.io/lbg-cloud-incubation/rkg-nginx-alpine:latest
+#         imagePullPolicy: Always
+#         ports:
+#         - containerPort: 80
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginxflaskapp-service
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: nginxflaskapp
+#   ports:
+#   - protocol: TCP
+#     port: 80 
+#     targetPort: 80
     
 # apiVersion: v1
 # kind: Pod
