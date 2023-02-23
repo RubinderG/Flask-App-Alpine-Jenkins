@@ -56,16 +56,16 @@ pipeline {
 			        if ("${GIT_BRANCH}" == 'origin/main') {
 				        sh '''
                         cd ./kubernetes
-				        sed -e 's,{{ns}},production,g;' flask-app.yml | kubectl apply -f -
-                        sed -e 's,{{ns}},production,g;' nginx.yml | kubectl apply -f -
+				        sed -e 's,{{ns}},production,g;' flask.yaml | kubectl apply -f -
+                        sed -e 's,{{ns}},production,g;' nginx.yaml | kubectl apply -f -
                         kubectl rollout restart deployment --namespace=production flask-deployment
                         kubectl rollout restart deployment --namespace=production nginx-deployment
 				        '''
 			        } else if ("${GIT_BRANCH}" == 'origin/development') {
 				        sh '''
 				        cd ./kubernetes
-				        sed -e 's,{{ns}},development,g;' flask-app.yml | kubectl apply -f -
-                        sed -e 's,{{ns}},development,g;' nginx.yml | kubectl apply -f -
+				        sed -e 's,{{ns}},development,g;' flask.yaml | kubectl apply -f -
+                        sed -e 's,{{ns}},development,g;' nginx.yaml | kubectl apply -f -
                         kubectl rollout restart deployment --namespace=development flask-deployment
                         kubectl rollout restart deployment --namespace=development nginx-deployment
 				        '''
